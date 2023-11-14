@@ -2,6 +2,7 @@ package com.learn.junit;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +22,7 @@ class DietPlannerTest {
         System.out.println(" ~~~~~~~~~~~~~~ A unit test was finished. ~~~~~~~~~~~~~~ ");
     }
 
-    @Test
+    @RepeatedTest(value = 100000, name = RepeatedTest.LONG_DISPLAY_NAME)
     void should_ReturnCorrectDietPlan_When_CorrectCoder() {
 
         // given
