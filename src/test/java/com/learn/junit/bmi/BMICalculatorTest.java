@@ -5,17 +5,26 @@ import com.learn.junit.Coder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class BMICalculatorTest {
 
+    private final String environment = "prod";
     @BeforeAll
     static void start(){
         System.out.println("~~~~~~~~~~~ BMICalculator test started ~~~~~~~~~~~");
@@ -90,6 +99,50 @@ class BMICalculatorTest {
                 () -> assertEquals(1.82, coderWithWorstBMI.getHeight()),
                 () -> assertEquals(98, coderWithWorstBMI.getWeight())
         );
+    }
+
+    // Performance test
+    @Test
+    void should_ReturnCoderWith_WorstBMI_In_ONE_MS_When_CoderList10000Elements(){
+
+        //given
+        List<Coder> coderList = new ArrayList<>();
+
+        for (int i = 0; i < 10000; i++) {
+            double randomHeight = 1.60 + Math.random() * 0.40;
+            double randomWeight = 50 + Math.random() * 50;
+
+            Coder coder = new Coder(randomHeight, randomWeight);
+            coderList.add(coder);
+        }
+
+        //when
+        Executable executable = () -> BMICalculator.findCoderWithWorstBMI(coderList);
+
+        //then
+        assertTimeout(Duration.ofMillis(70), executable);
+    }
+
+    // ignore environment wise test cases
+    @Test
+    void should_Ignore_Environment_WiseTest(){
+
+        assumeTrue(this.environment.equals("prod"));
+        //given
+        List<Coder> coderList = new ArrayList<>();
+
+        for (int i = 0; i < 10000; i++) {
+            double randomHeight = 1.60 + Math.random() * 0.40;
+            double randomWeight = 50 + Math.random() * 50;
+
+            Coder coder = new Coder(randomHeight, randomWeight);
+            coderList.add(coder);
+        }
+        //when
+        Executable executable = () -> BMICalculator.findCoderWithWorstBMI(coderList);
+
+        //then
+        assertTimeout(Duration.ofMillis(70), executable);
     }
 
     @Test

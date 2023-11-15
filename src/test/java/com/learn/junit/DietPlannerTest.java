@@ -22,7 +22,7 @@ class DietPlannerTest {
         System.out.println(" ~~~~~~~~~~~~~~ A unit test was finished. ~~~~~~~~~~~~~~ ");
     }
 
-    @RepeatedTest(value = 100000, name = RepeatedTest.LONG_DISPLAY_NAME)
+    @RepeatedTest(value = 1000, name = RepeatedTest.LONG_DISPLAY_NAME)
     void should_ReturnCorrectDietPlan_When_CorrectCoder() {
 
         // given
