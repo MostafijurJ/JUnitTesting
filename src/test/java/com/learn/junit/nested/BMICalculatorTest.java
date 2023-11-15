@@ -4,6 +4,7 @@ import com.learn.junit.BMICalculator;
 import com.learn.junit.Coder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -144,6 +145,7 @@ class BMICalculatorTest {
 
 
     @Nested
+    @DisplayName("GetBMIScoresTestsPerformanceAndEnvironmentWise")
     class GetBMIScoresTestsPerformanceAndEnvironmentWise{
         // Performance test
         @Test
